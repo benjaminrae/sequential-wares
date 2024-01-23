@@ -17,5 +17,9 @@
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@app/core": ["libs/core/src"],
+      "@app/core/*": ["libs/core/src/*"],
+    },
   },
 }
