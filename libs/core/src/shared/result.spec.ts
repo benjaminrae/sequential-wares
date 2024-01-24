@@ -8,7 +8,7 @@ describe('Result', () => {
   });
 
   it('should throw an error if it receives a value and an error', () => {
-    expect(() => new Result({ value: 'test', error: 'test' })).toThrow(
+    expect(() => new Result({ value: 'test', error: new Error('test') })).toThrow(
       'InvalidOperation: A result cannot have a value and an error',
     );
   });
@@ -25,7 +25,7 @@ describe('Result', () => {
 
   describe('failure', () => {
     it('should return a failed result with the received error', () => {
-      const result = Result.failure('test');
+      const result = Result.failure(new Error('test'));
 
       expect(result.isSuccess).toEqual(false);
       expect(result.isFailure).toEqual(true);
@@ -35,7 +35,7 @@ describe('Result', () => {
 
   describe('value', () => {
     it('should throw an error if the result is a failure', () => {
-      const result = Result.failure('test');
+      const result = Result.failure(new Error('test'));
 
       expect(() => result.value).toThrow('Cannot retrieve value from failed result');
     });
