@@ -129,7 +129,12 @@ packages:
       {
         integrity: sha512-r5jqwpWOgowqe9KSDqJ3iSbmsEt2XPjSvRG4DSI2T9s31bReoMtreo8b7wkRa2B3hbcDnstFbn8q27VvJDqRaQ==,
       }
-    engines: { node: ^18.13.0 || >=20.9.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0' }
+    engines:
+      {
+        node: ^18.13.0 || >=20.9.0,
+        npm: ^6.11.0 || ^7.5.6 || >=8.0.0,
+        yarn: '>= 1.13.0',
+      }
     peerDependencies:
       chokidar: ^3.5.2
     peerDependenciesMeta:
@@ -150,7 +155,12 @@ packages:
       {
         integrity: sha512-tznzzB26sy8jVUlV9HhXcbFYZcIIFMAiDMOuyLko2LZFjfoqW+OPvwa1mwAQwvVVSQZVAKvdndFhzwyl/axwFQ==,
       }
-    engines: { node: ^18.13.0 || >=20.9.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0' }
+    engines:
+      {
+        node: ^18.13.0 || >=20.9.0,
+        npm: ^6.11.0 || ^7.5.6 || >=8.0.0,
+        yarn: '>= 1.13.0',
+      }
     hasBin: true
     dependencies:
       '@angular-devkit/core': 17.0.9(chokidar@3.5.3)
@@ -168,7 +178,12 @@ packages:
       {
         integrity: sha512-5ti7g45F2KjDJS0DbgnOGI1GyKxGpn4XsKTYJFJrSAWj6VpuvPy/DINRrXNuRVo09VPEkqA+IW7QwaG9icptQg==,
       }
-    engines: { node: ^18.13.0 || >=20.9.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0' }
+    engines:
+      {
+        node: ^18.13.0 || >=20.9.0,
+        npm: ^6.11.0 || ^7.5.6 || >=8.0.0,
+        yarn: '>= 1.13.0',
+      }
     dependencies:
       '@angular-devkit/core': 17.0.9(chokidar@3.5.3)
       jsonc-parser: 3.2.0

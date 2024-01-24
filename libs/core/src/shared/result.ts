@@ -1,6 +1,6 @@
 import { DomainError } from './domain-error';
 
-export type ResultError = DomainError | Error | string;
+export type ResultError = DomainError | Error;
 
 export type ResultProps<T> = {
   value?: T;
