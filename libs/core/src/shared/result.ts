@@ -37,9 +37,7 @@ export class Result<ResultType> {
       throw new DomainError({ message: 'Cannot retrieve value from failed result' });
     }
 
-    const value = structuredClone(this.#value);
-
-    return value as ResultType;
+    return this.#value as ResultType;
   }
 
   protected validate(props: ResultProps<ResultType>): void {
