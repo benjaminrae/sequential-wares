@@ -10,6 +10,8 @@
     "@app/core/(.*)": "<rootDir>/../libs/core/src/$1",
     "@app/core": "<rootDir>/../libs/core/src",
     "@app/application/(.*)": "<rootDir>/../libs/application/src/$1",
-    "@app/application": "<rootDir>/../libs/application/src"
+    "@app/application": "<rootDir>/../libs/application/src",
+    "@app/infrastructure/(.*)": "<rootDir>/../libs/infrastructure/src/$1",
+    "@app/infrastructure": "<rootDir>/../libs/infrastructure/src"
   }
 }
