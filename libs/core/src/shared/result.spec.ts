@@ -32,4 +32,12 @@ describe('Result', () => {
       expect(result.error).toEqual('test');
     });
   });
+
+  describe('value', () => {
+    it('should throw an error if the result is a failure', () => {
+      const result = Result.failure('test');
+
+      expect(() => result.value).toThrow('Cannot retrieve value from failed result');
+    });
+  });
 });
