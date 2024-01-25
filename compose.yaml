@@ -1,13 +1,4 @@
 services:
-  server:
-    build:
-      context: .
-    environment:
-      NODE_ENV: production
-      MONGO_URI: mongodb://mongodb:27017/sequential-wares
-    ports:
-      - 3000:3000
-
   database:
     image: mongo:latest
     container_name: mongodb
@@ -16,6 +7,18 @@ services:
       - 27017:27017
     volumes:
       - db-data:/data/db
+
+  server:
+    build:
+      context: .
+    depends_on:
+      database:
+        condition: service_started
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb://mongodb:27017/sequential-wares
+    ports:
+      - 3000:3000
 
 volumes:
   db-data:
