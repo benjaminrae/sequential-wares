@@ -27,8 +27,12 @@ jobs:
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
 
-      - name: Coverage
+      - name: Unit Coverage
         run: pnpm test:cov
+
+      - name: E2E coverage
+        run: pnpm test:e2e:cov
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
