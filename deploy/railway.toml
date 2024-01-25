@@ -1,9 +1,10 @@
 [build]
-builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
+builder = "nixpacks"
+buildCommand = "pnpm build"
 watchPatterns = ["src/**", "libs/**"]
 
 [deploy]
+startCommand = "pnpm start:dev"
 healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
