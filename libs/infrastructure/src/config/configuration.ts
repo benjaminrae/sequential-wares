@@ -6,4 +6,5 @@ export const configuration = (): Configuration => ({
     uri: process.env.MONGO_URI || 'mongodb://localhost:27017/sequential-wares',
     debug: process.env.MONGO_DEBUG === 'true',
   },
+  jwtSecret: process.env.JWT_SECRET || 'secretkey',
 });

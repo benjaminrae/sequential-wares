@@ -11,7 +11,7 @@ import { ConfigModule } from '../config/config.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get('MONGO_URI'),
+        uri: configService.get('database.uri'),
       }),
     }),
   ],
