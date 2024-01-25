@@ -22,6 +22,8 @@
       "@app/core/*": ["libs/core/src/*"],
       "@app/application": ["libs/application/src"],
       "@app/application/*": ["libs/application/src/*"],
+      "@app/infrastructure": ["libs/infrastructure/src"],
+      "@app/infrastructure/*": ["libs/infrastructure/src/*"],
     },
   },
 }
