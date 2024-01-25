@@ -1,10 +1,10 @@
 import { Configuration } from './types';
 
 export const configuration = (): Configuration => ({
-  port: Number(process.env.PORT) || 3000,
+  port: Number(process.env.PORT ?? 3000),
   database: {
-    uri: process.env.MONGO_URI || 'mongodb://localhost:27017/sequential-wares',
+    uri: process.env.MONGO_URI ?? 'mongodb://localhost:27017/sequential-wares',
     debug: process.env.MONGO_DEBUG === 'true',
   },
-  jwtSecret: process.env.JWT_SECRET || 'secretkey',
+  jwtSecret: process.env.JWT_SECRET ?? 'secretkey',
 });
