@@ -1,17 +1,19 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": ".",
+  "rootDir": "..",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-    "@app/core/(.*)": "<rootDir>/../libs/core/src/$1",
-    "@app/core": "<rootDir>/../libs/core/src",
-    "@app/application/(.*)": "<rootDir>/../libs/application/src/$1",
-    "@app/application": "<rootDir>/../libs/application/src",
-    "@app/infrastructure/(.*)": "<rootDir>/../libs/infrastructure/src/$1",
-    "@app/infrastructure": "<rootDir>/../libs/infrastructure/src"
-  }
+    "@app/core/(.*)": "<rootDir>/libs/core/src/$1",
+    "@app/core": "<rootDir>/libs/core/src",
+    "@app/application/(.*)": "<rootDir>/libs/application/src/$1",
+    "@app/application": "<rootDir>/libs/application/src",
+    "@app/infrastructure/(.*)": "<rootDir>/libs/infrastructure/src/$1",
+    "@app/infrastructure": "<rootDir>/libs/infrastructure/src"
+  },
+  "collectCoverageFrom": ["**/*.(t|j)s", "!*/**/index.(t|j)s"],
+  "coverageDirectory": "coverage/e2e"
 }

@@ -6,4 +6,5 @@ export type MongoConfig = {
 export type Configuration = {
   port: number;
   database: MongoConfig;
+  jwtSecret: string;
 };
