@@ -1,5 +1,5 @@
 import { JwtTokenService } from '@app/application';
-import { AuthKeys } from '@app/infrastructure/di/auth.keys';
+import { AuthKeys } from '@app/infrastructure/di/auth/auth.keys';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 
