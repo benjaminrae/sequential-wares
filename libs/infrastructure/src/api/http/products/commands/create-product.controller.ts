@@ -4,7 +4,10 @@ import { ProductsKeys } from '@app/infrastructure/di/products/product.keys';
 import { ProductModel } from '@app/infrastructure/persistence/products/product.schema';
 import { Controller, HttpException, Inject, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ProductResponse } from '../product.response';
 
+@ApiTags('products')
 @Controller('/products')
 export class CreateProductController {
   constructor(
@@ -13,6 +16,11 @@ export class CreateProductController {
   ) {}
 
   @Post()
+  @ApiResponse({
+    status: 201,
+    description: 'Create product',
+    type: ProductResponse,
+  })
   async createProduct() {
     const command = new CreateProductCommand();
     const result = await this.commandBus.execute(command);

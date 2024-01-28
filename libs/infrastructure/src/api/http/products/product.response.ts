@@ -1,5 +1,10 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class ProductResponse {
+  @ApiProperty({ type: String })
   id: string;
+
+  @ApiProperty({ type: Date })
   created_at: Date;
 
   constructor(props: ProductResponse) {

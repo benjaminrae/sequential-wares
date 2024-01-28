@@ -4,8 +4,9 @@ import { ProductsKeys } from '@app/infrastructure/di/products/product.keys';
 import { ProductModel } from '@app/infrastructure/persistence/products/product.schema';
 import { Controller, Get, HttpException, Inject } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('products')
 @Controller('/products')
 export class GetProductsController {
   constructor(
@@ -15,6 +16,23 @@ export class GetProductsController {
 
   @ApiOperation({ summary: 'Get products' })
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Get products',
+    schema: {
+      properties: {
+        total: {
+          type: 'number',
+        },
+        data: {
+          type: 'array',
+          items: {
+            type: 'object',
+          },
+        },
+      },
+    },
+  })
   async getProducts() {
     const query = new GetProductsQuery({});
     const result = await this.queryBus.execute<GetProductsQuery, Result<Paginated<Product>>>(query);
