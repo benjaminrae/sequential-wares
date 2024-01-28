@@ -7,9 +7,9 @@ export type Paginated<Entity> = {
 };
 
 export interface ReadRepository<Entity> {
-  findById(id: UniqueIdentifier): Promise<Entity>;
+  findById(id: UniqueIdentifier): Promise<Entity | null>;
   findMany(query?: PaginatedQuery<Entity>): Promise<Paginated<Entity>>;
-  findOne(query: Query): Promise<Entity>;
+  findOne(query: Query): Promise<Entity | null>;
 }
 
 export interface Repository<Entity> extends ReadRepository<Entity> {
