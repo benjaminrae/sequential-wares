@@ -1,55 +1,33 @@
-import { InfrastructureModule } from '@app/infrastructure';
-import { ConfigModule } from '@app/infrastructure/config/config.module';
-import { configuration } from '@app/infrastructure/config/configuration';
+import { ProductsModule } from '@app/infrastructure/di/products/products.module';
 import { INestApplication } from '@nestjs/common';
-import { ConfigModule as NestConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import * as request from 'supertest';
 
-let mongo: MongoMemoryServer;
-
-afterAll(async () => {
-  await mongo.stop();
-});
-
 describe('Create Product', () => {
   let app: INestApplication;
+  let mongo: MongoMemoryServer;
+
+  afterAll(async () => {
+    await mongo.stop();
+
+    await app.close();
+  });
 
   beforeAll(async () => {
     mongo = await MongoMemoryServer.create();
 
     const moduleFixture = await Test.createTestingModule({
-      imports: [InfrastructureModule],
-      providers: [
-        {
-          provide: ConfigModule,
-          useValue: NestConfigModule.forRoot({
-            load: [
-              () => {
-                const uri = mongo.getUri();
-                const config = configuration();
-
-                return {
-                  ...config,
-                  database: {
-                    ...config.database,
-                    uri,
-                  },
-                };
-              },
-            ],
-          }),
-        },
-      ],
+      imports: [ProductsModule, MongooseModule.forRoot(mongo.getUri())],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
   });
 
-  it('POST /products should create a product', () => {
-    return request(app.getHttpServer())
+  it('POST /products should create a product', async () => {
+    return await request(app.getHttpServer())
       .post('/products')
       .send()
       .expect(201)
