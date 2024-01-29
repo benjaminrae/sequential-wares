@@ -18,6 +18,10 @@ describe('Auth', () => {
     await app.init();
   });
 
+  afterAll(async () => {
+    await app.close();
+  });
+
   it('GET /auth/token should return a valid token with 10m expiry', () => {
     return request(app.getHttpServer())
       .get('/auth/token')
