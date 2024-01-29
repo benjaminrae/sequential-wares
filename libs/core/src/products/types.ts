@@ -1,1 +1,1 @@
-export type ProductProps = Record<string, never>;
+export type ProductProps = object;

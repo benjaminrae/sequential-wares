@@ -1,6 +1,6 @@
 import { TokenPayload } from '@app/application';
-import { AuthModule } from '@app/infrastructure/api/http/auth/auth.module';
 import { ConfigModule } from '@app/infrastructure/config/config.module';
+import { AuthModule } from '@app/infrastructure/di/auth/auth.module';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { decode } from 'jsonwebtoken';
