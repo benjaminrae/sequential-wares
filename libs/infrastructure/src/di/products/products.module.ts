@@ -41,13 +41,18 @@ export const models: Provider[] = [
   },
 ];
 
-export const handlers: Provider[] = [NestCreateProductHandler, NestGetProductsHandler];
+export const handlers: Provider[] = [
+  NestCreateProductHandler,
+  NestGetProductsHandler,
+];
 
 export const controllers = [CreateProductController, GetProductsController];
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: ProductModel.name, schema: ProductSchema }]),
+    MongooseModule.forFeature([
+      { name: ProductModel.name, schema: ProductSchema },
+    ]),
     CqrsModule,
   ],
   controllers: [...controllers],

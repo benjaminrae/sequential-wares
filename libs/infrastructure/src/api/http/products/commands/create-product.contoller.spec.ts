@@ -47,7 +47,7 @@ describe('CreateProductController', () => {
       const commandResult = Result.failure(new Error());
       commandBus.execute.mockReturnValue(commandResult);
 
-      await expect(controller.createProduct()).rejects.toThrowError();
+      await expect(controller.createProduct()).rejects.toThrow();
     });
   });
 });
