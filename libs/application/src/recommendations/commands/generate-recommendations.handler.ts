@@ -19,7 +19,7 @@ export class GenerateRecommendationsHandler
       this.orderRecommendedProducts(recommendedProducts);
 
     const recommendations = Recommendations.create({
-      products: orderedRecommendedProducts,
+      recommendedProducts: orderedRecommendedProducts,
     });
 
     try {

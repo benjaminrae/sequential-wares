@@ -1,3 +1,8 @@
 export type RecommendationsProps = {
-  products: string[][];
+  originalProducts: string[];
+  recommendedProducts: string[][];
+};
+
+export type CreateRecommendationsProps = {
+  recommendedProducts: string[][];
 };

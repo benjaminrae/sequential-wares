@@ -30,9 +30,9 @@ describe('GenerateRecommendationsHandler', () => {
 
     expect(result.isSuccess).toBe(true);
     expect(repository.create).toHaveBeenCalledTimes(1);
-    expect((result.value as Recommendations).toObject().products).toStrictEqual(
-      expectedRecommendations,
-    );
+    expect(
+      (result.value as Recommendations).toObject().recommendedProducts,
+    ).toStrictEqual(expectedRecommendations);
   });
 
   it('should return a failure result if the recommendations cannot be generated', async () => {
