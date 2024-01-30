@@ -2,7 +2,15 @@ import { GenerateRecommendationsCommand } from '@app/application/recommendations
 import { Mapper, Recommendations } from '@app/core';
 import { RecommendationsKeys } from '@app/infrastructure/di/recommendations/recommendations.keys';
 import { RecommendationsModel } from '@app/infrastructure/persistence/recommendations/recommendations.schema';
-import { Body, Controller, Inject, Post, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RecommendationsResponse } from '../recommendations.response';
@@ -37,6 +45,10 @@ export class GenerateRecommendationsController {
     const result = await this.commandBus.execute(command);
 
     if (result.isFailure) {
+      throw new HttpException(
+        'Failed to generate recommendations',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     return this.recommendationsMapper.toPresenter(result.value);
