@@ -14,7 +14,10 @@ export class GenerateRecommendationsHandler
   ): Promise<Result<Recommendations | Error>> {
     const { products } = command;
 
-    const recommendedProducts = this.generateRecommendedProducts(products);
+    const uniqueProducts = Array.from(new Set(products));
+
+    const recommendedProducts =
+      this.generateRecommendedProducts(uniqueProducts);
     const orderedRecommendedProducts =
       this.orderRecommendedProducts(recommendedProducts);
 

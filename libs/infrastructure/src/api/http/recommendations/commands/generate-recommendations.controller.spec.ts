@@ -35,7 +35,7 @@ describe('GenerateRecommendationsController', () => {
 
   describe('generateRecommendations', () => {
     it('should execute a GenerateRecommendationsCommand and return the created recommendations', async () => {
-      const originalProducts = new Set(['1', '2', '3']);
+      const originalProducts = ['1', '2', '3'];
       const generateRecommendationsDto = new GenerateRecommendationsDto();
       generateRecommendationsDto.products = originalProducts;
       const recommendedProducts = [
