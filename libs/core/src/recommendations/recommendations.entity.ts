@@ -21,7 +21,7 @@ export class Recommendations extends Entity<RecommendationsProps> {
     }
   }
 
-  private static generateOriginalProducts(
+  public static generateOriginalProducts(
     recommendedProducts: string[][],
   ): string[] {
     const originalProducts = new Set<string>(recommendedProducts.flat());
