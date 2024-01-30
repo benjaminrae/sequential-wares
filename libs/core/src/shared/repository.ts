@@ -2,7 +2,7 @@ import { Entity as BaseEntity } from './entity';
 import { PaginatedQuery, Query } from './query';
 import { UniqueIdentifier } from './unique-identifier';
 
-export type Paginated<Entity extends BaseEntity<unknown>> = {
+export type Paginated<Entity> = {
   data: Entity[];
   total: number;
   limit?: number;

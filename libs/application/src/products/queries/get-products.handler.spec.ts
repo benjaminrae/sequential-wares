@@ -17,9 +17,16 @@ describe('GetProductsHandler', () => {
         data: [product],
         total: 1,
       };
-      const query = new GetProductsQuery({});
+      const query = new GetProductsQuery({
+        limit: 1,
+        offset: 0,
+        order: 'ASC',
+        orderBy: 'id',
+      });
       const handler = new GetProductsHandler(productReadRepository);
-      productReadRepository.findMany = jest.fn().mockResolvedValue(paginatedProducts);
+      productReadRepository.findMany = jest
+        .fn()
+        .mockResolvedValue(paginatedProducts);
 
       const result = await handler.execute(query);
 
@@ -30,7 +37,12 @@ describe('GetProductsHandler', () => {
 
     it('should return a failed result with a domain error', async () => {
       const resultError = new Error('Failed to get products');
-      const query = new GetProductsQuery({});
+      const query = new GetProductsQuery({
+        limit: 1,
+        offset: 0,
+        order: 'ASC',
+        orderBy: 'id',
+      });
       const handler = new GetProductsHandler(productReadRepository);
       productReadRepository.findMany = jest
         .fn()
