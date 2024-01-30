@@ -1,3 +1,7 @@
+import { JwtTokenService } from '@app/application';
+import { ConfigModule } from '@app/infrastructure/config/config.module';
+import { AuthKeys } from '@app/infrastructure/di/auth/auth.keys';
+import { AuthModule } from '@app/infrastructure/di/auth/auth.module';
 import { RecommendationsModule } from '@app/infrastructure/di/recommendations/recommendations.module';
 import { INestApplication } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -8,6 +12,8 @@ import * as request from 'supertest';
 describe('Generate Recommendations', () => {
   let app: INestApplication;
   let mongo: MongoMemoryServer;
+  let tokenService: JwtTokenService;
+  let token: string;
 
   afterAll(async () => {
     await mongo.stop();
@@ -19,11 +25,19 @@ describe('Generate Recommendations', () => {
     mongo = await MongoMemoryServer.create();
 
     const moduleFixture = await Test.createTestingModule({
-      imports: [RecommendationsModule, MongooseModule.forRoot(mongo.getUri())],
+      imports: [
+        RecommendationsModule,
+        MongooseModule.forRoot(mongo.getUri()),
+        AuthModule,
+        ConfigModule,
+      ],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
+    tokenService = app.get(AuthKeys.TOKEN_SERVICE);
+
+    token = tokenService.generateToken({});
   });
 
   it('POST /recommendations should generate recommendations', async () => {
@@ -40,6 +54,7 @@ describe('Generate Recommendations', () => {
 
     return await request(app.getHttpServer())
       .post('/recommendations')
+      .set('Authorization', `Bearer ${token}`)
       .send({ products })
       .expect(201)
       .expect((res) => {
@@ -52,7 +67,14 @@ describe('Generate Recommendations', () => {
   it('POST /recommendations should return an error if the products are not provided', async () => {
     return await request(app.getHttpServer())
       .post('/recommendations')
+      .set('Authorization', `Bearer ${token}`)
       .send()
       .expect(400);
+  });
+
+  it('should return 401 "Unauthorized" if the request is not authenticated', async () => {
+    return await request(app.getHttpServer())
+      .get('/recommendations')
+      .expect(401);
   });
 });

@@ -1,4 +1,5 @@
 import { Recommendations, Result } from '@app/core';
+import { AuthGuard } from '@app/infrastructure/di/auth/auth.guard';
 import { RecommendationsKeys } from '@app/infrastructure/di/recommendations/recommendations.keys';
 import { RecommendationsMapper } from '@app/infrastructure/di/recommendations/recommendations.mapper';
 import { CommandBus } from '@nestjs/cqrs';
@@ -26,7 +27,12 @@ describe('GenerateRecommendationsController', () => {
           useValue: recommendationsMapper,
         },
       ],
-    }).compile();
+    })
+      .overrideGuard(AuthGuard)
+      .useValue({
+        canActivate: jest.fn().mockResolvedValue(true),
+      })
+      .compile();
 
     controller = module.get<GenerateRecommendationsController>(
       GenerateRecommendationsController,

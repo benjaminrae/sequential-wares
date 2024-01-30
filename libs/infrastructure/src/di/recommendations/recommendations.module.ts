@@ -9,6 +9,7 @@ import {
 import { Module, Provider } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from '../auth/auth.module';
 import { NestGenerateRecommendationsHandler } from './handlers/nest-generate-recommendations.handler';
 import { NestGetRecommendationsHandler } from './handlers/nest-get-recommendations.handler';
 import { RecommendationsKeys } from './recommendations.keys';
@@ -57,6 +58,7 @@ export const controllers = [
       { name: RecommendationsModel.name, schema: RecommendationsSchema },
     ]),
     CqrsModule,
+    AuthModule,
   ],
   controllers: [...controllers],
   providers: [...models, ...repositories, ...mappers, ...handlers],

@@ -1,5 +1,6 @@
 import { GenerateRecommendationsCommand } from '@app/application/recommendations';
 import { Mapper, Recommendations } from '@app/core';
+import { AuthGuard } from '@app/infrastructure/di/auth/auth.guard';
 import { RecommendationsKeys } from '@app/infrastructure/di/recommendations/recommendations.keys';
 import { RecommendationsModel } from '@app/infrastructure/persistence/recommendations/recommendations.schema';
 import {
@@ -9,6 +10,7 @@ import {
   HttpStatus,
   Inject,
   Post,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
@@ -16,6 +18,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RecommendationsResponse } from '../recommendations.response';
 import { GenerateRecommendationsDto } from './generate-recommendations.dto';
 
+@UseGuards(AuthGuard)
 @ApiTags('recommendations')
 @Controller('recommendations')
 export class GenerateRecommendationsController {

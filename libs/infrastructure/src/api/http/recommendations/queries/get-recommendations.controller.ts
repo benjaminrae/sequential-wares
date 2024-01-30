@@ -1,5 +1,6 @@
 import { GetRecommendationsQuery } from '@app/application/recommendations';
 import { Mapper, Paginated, Recommendations, Result } from '@app/core';
+import { AuthGuard } from '@app/infrastructure/di/auth/auth.guard';
 import { RecommendationsKeys } from '@app/infrastructure/di/recommendations/recommendations.keys';
 import { RecommendationsModel } from '@app/infrastructure/persistence/recommendations/recommendations.schema';
 import {
@@ -9,6 +10,7 @@ import {
   HttpStatus,
   Inject,
   Query,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -16,6 +18,7 @@ import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { PaginationDto } from '../../pagination.dto';
 
+@UseGuards(AuthGuard)
 @Controller('/recommendations')
 export class GetRecommendationsController {
   constructor(
