@@ -4,10 +4,10 @@ import {
 } from '@app/application/recommendations';
 import { ReadRepository, Recommendations } from '@app/core';
 import { Inject } from '@nestjs/common';
-import { CommandHandler as NestCommandHandler } from '@nestjs/cqrs';
+import { QueryHandler as NestQueryHandler } from '@nestjs/cqrs';
 import { RecommendationsKeys } from '../recommendations.keys';
 
-@NestCommandHandler(GetRecommendationsQuery)
+@NestQueryHandler(GetRecommendationsQuery)
 export class NestGetRecommendationsHandler extends GetRecommendationsHandler {
   constructor(
     @Inject(RecommendationsKeys.RECOMMENDATIONS_READ_REPOSITORY)

@@ -2,7 +2,13 @@ import { CreateProductCommand } from '@app/application';
 import { Mapper, Product } from '@app/core';
 import { ProductsKeys } from '@app/infrastructure/di/products/product.keys';
 import { ProductModel } from '@app/infrastructure/persistence/products/product.schema';
-import { Controller, HttpException, Inject, Post } from '@nestjs/common';
+import {
+  Controller,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Post,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductResponse } from '../product.response';
@@ -12,7 +18,8 @@ import { ProductResponse } from '../product.response';
 export class CreateProductController {
   constructor(
     private commandBus: CommandBus,
-    @Inject(ProductsKeys.PRODUCT_MAPPER) private productMapper: Mapper<Product, ProductModel>,
+    @Inject(ProductsKeys.PRODUCT_MAPPER)
+    private productMapper: Mapper<Product, ProductModel>,
   ) {}
 
   @Post()
@@ -26,7 +33,7 @@ export class CreateProductController {
     const result = await this.commandBus.execute(command);
 
     if (result.isFailure) {
-      throw new HttpException(result.error!, 400);
+      throw new HttpException(result.error!, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     return this.productMapper.toPresenter(result.value);

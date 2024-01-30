@@ -47,7 +47,7 @@ export class GenerateRecommendationsController {
     if (result.isFailure) {
       throw new HttpException(
         'Failed to generate recommendations',
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
 
