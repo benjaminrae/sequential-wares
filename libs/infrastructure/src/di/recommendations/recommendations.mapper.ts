@@ -27,7 +27,7 @@ export class RecommendationsMapper
 
     return model;
   }
-  toPresenter(domainEntity: Recommendations): unknown {
+  toPresenter(domainEntity: Recommendations): RecommendationsResponse {
     const entity = domainEntity.toObject();
 
     return new RecommendationsResponse({

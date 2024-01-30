@@ -26,7 +26,12 @@ describe('GetRecommendationsHandler', () => {
         data: [recommendation],
         total: 1,
       };
-      const query = new GetRecommendationsQuery({});
+      const query = new GetRecommendationsQuery({
+        limit: 1,
+        offset: 0,
+        order: 'ASC',
+        orderBy: 'id',
+      });
       const handler = new GetRecommendationsHandler(
         recommendationReadRepository,
       );
@@ -43,7 +48,12 @@ describe('GetRecommendationsHandler', () => {
 
     it('should return a failed result with a domain error', async () => {
       const resultError = new Error('Failed to get recommendations');
-      const query = new GetRecommendationsQuery({});
+      const query = new GetRecommendationsQuery({
+        limit: 1,
+        offset: 0,
+        order: 'ASC',
+        orderBy: 'id',
+      });
       const handler = new GetRecommendationsHandler(
         recommendationReadRepository,
       );

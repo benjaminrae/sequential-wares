@@ -1,4 +1,5 @@
 import { GenerateRecommendationsController } from '@app/infrastructure/api/http/recommendations/commands/generate-recommendations.controller';
+import { GetRecommendationsController } from '@app/infrastructure/api/http/recommendations/queries/get-recommendations.controller';
 import { RecommendationsReadRepository } from '@app/infrastructure/persistence/recommendations/recommendations-read.repository';
 import { RecommendationsRepository } from '@app/infrastructure/persistence/recommendations/recommendations.repository';
 import {
@@ -45,7 +46,10 @@ export const handlers: Provider[] = [
   NestGetRecommendationsHandler,
 ];
 
-export const controllers = [GenerateRecommendationsController];
+export const controllers = [
+  GenerateRecommendationsController,
+  GetRecommendationsController,
+];
 
 @Module({
   imports: [

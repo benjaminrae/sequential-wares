@@ -1,10 +1,18 @@
-import { DomainError, Entity, Paginated, ReadRepository, UniqueIdentifier } from '@app/core';
+import {
+  DomainError,
+  Entity,
+  Paginated,
+  ReadRepository,
+  UniqueIdentifier,
+} from '@app/core';
 import { Mapper } from '@app/core/shared/mapper';
 import { Order, PaginatedQuery, Query } from '@app/core/shared/query';
 import { Model, SortOrder } from 'mongoose';
 
-export class MongooseReadRepositoryAdapter<DomainEntity extends Entity<unknown>, PersistedModel>
-  implements ReadRepository<DomainEntity>
+export class MongooseReadRepositoryAdapter<
+  DomainEntity extends Entity<unknown>,
+  PersistedModel,
+> implements ReadRepository<DomainEntity>
 {
   constructor(
     public schema: Model<PersistedModel>,
@@ -25,25 +33,34 @@ export class MongooseReadRepositoryAdapter<DomainEntity extends Entity<unknown>,
     }
   }
   async findMany(
-    query?: PaginatedQuery<DomainEntity> | undefined,
+    query: PaginatedQuery<DomainEntity>,
   ): Promise<Paginated<DomainEntity>> {
-    const pagination = query?.pagination;
+    const pagination = query.pagination;
+
+    const order: Order<DomainEntity> = {
+      field: pagination.orderBy,
+      direction: pagination.order,
+    };
 
     try {
       const dataQuery = this.schema
         .find()
-        .limit(pagination?.limit ?? 0)
-        .skip(pagination?.offset ?? 0)
-        .sort(this.transformOrder(pagination?.order));
+        .limit(pagination.limit)
+        .skip(pagination.offset)
+        .sort(this.transformOrder(order));
 
       const data = await dataQuery.exec();
       const total = await this.schema.countDocuments().exec();
 
-      const entities = data.map((item) => this.mapper.toDomain(item.toObject()));
+      const entities = data.map((item) =>
+        this.mapper.toDomain(item.toObject()),
+      );
 
       return {
         total,
         data: entities,
+        limit: pagination?.limit,
+        offset: pagination?.offset,
       };
     } catch (error) {
       throw new DomainError({
@@ -71,7 +88,9 @@ export class MongooseReadRepositoryAdapter<DomainEntity extends Entity<unknown>,
     }
   }
 
-  private transformOrder(order?: Order<DomainEntity>): Record<string, SortOrder> {
+  private transformOrder(
+    order?: Order<DomainEntity>,
+  ): Record<string, SortOrder> {
     if (!order || !order.field) {
       return {};
     }
