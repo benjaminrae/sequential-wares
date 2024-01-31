@@ -10,7 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductResponse } from '../product.response';
 
 @ApiTags('products')
@@ -23,6 +23,7 @@ export class CreateProductController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create product' })
   @ApiResponse({
     status: 201,
     description: 'Create product',

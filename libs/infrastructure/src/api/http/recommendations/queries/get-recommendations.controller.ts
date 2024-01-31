@@ -15,10 +15,16 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { PaginationDto } from '../../pagination.dto';
 
 @UseGuards(AuthGuard)
+@ApiTags('recommendations')
 @Controller('/recommendations')
 export class GetRecommendationsController {
   constructor(
@@ -31,6 +37,7 @@ export class GetRecommendationsController {
   ) {}
 
   @ApiOperation({ summary: 'Get recommendations' })
+  @ApiBearerAuth()
   @Get()
   @ApiResponse({
     status: 200,
@@ -45,6 +52,12 @@ export class GetRecommendationsController {
           items: {
             type: 'object',
           },
+        },
+        limit: {
+          type: 'number',
+        },
+        offset: {
+          type: 'number',
         },
       },
     },
