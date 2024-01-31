@@ -10,6 +10,7 @@ async function bootstrap() {
     .setTitle('Sequential Wares API')
     .setDescription('Clean Ecommerce POC')
     .setVersion('1.0')
+    .addBearerAuth({ bearerFormat: 'JWT', type: 'http' })
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);

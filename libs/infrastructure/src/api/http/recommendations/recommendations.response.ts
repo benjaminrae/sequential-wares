@@ -10,7 +10,7 @@ export class RecommendationsResponse {
   @ApiProperty({ type: [String] })
   original_products: string[];
 
-  @ApiProperty({ type: [[String]] })
+  @ApiProperty({ type: [[String]], example: [['string']] })
   recommended_products: string[][];
 
   constructor(props: RecommendationsResponse) {

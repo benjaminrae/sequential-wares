@@ -14,7 +14,12 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { RecommendationsResponse } from '../recommendations.response';
 import { GenerateRecommendationsDto } from './generate-recommendations.dto';
 
@@ -32,6 +37,8 @@ export class GenerateRecommendationsController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Generate recommendations' })
+  @ApiBearerAuth()
   @ApiResponse({
     status: 201,
     description: 'Generate recommendations',
