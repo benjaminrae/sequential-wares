@@ -18,11 +18,15 @@ export class JwtTokenService {
     this.#tokenExpiry = tokenExpiry;
   }
 
-  public verifyToken<Payload extends TokenPayload<unknown>>(token: string): Payload {
+  public verifyToken<Payload extends TokenPayload<unknown>>(
+    token: string,
+  ): Payload {
     return verify(token, this.#secret) as Payload;
   }
 
-  public generateToken<Payload extends TokenPayload<unknown>>(payload: Payload): string {
+  public generateToken<Payload extends TokenPayload<unknown>>(
+    payload: Payload,
+  ): string {
     return sign(payload as object, this.#secret, {
       expiresIn: this.#tokenExpiry,
     });

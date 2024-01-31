@@ -3,6 +3,7 @@ import { AuthKeys } from '@app/infrastructure/di/auth/auth.keys';
 import { Module, Provider } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthController } from '../../api/http/auth/auth.controller';
+import { AuthGuard } from './auth.guard';
 
 const providers: Provider[] = [
   {
@@ -14,10 +15,12 @@ const providers: Provider[] = [
     },
     provide: AuthKeys.TOKEN_SERVICE,
   },
+  AuthGuard,
 ];
 
 @Module({
   providers,
   controllers: [AuthController],
+  exports: [AuthGuard, AuthKeys.TOKEN_SERVICE],
 })
 export class AuthModule {}
